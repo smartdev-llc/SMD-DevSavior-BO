@@ -23,9 +23,18 @@
               "src/assets"
             ],
             "styles": [
+              "./libs/css/font-awesome.css",
+              "./libs/css/fontastic.css",
+              "./libs/css/jquery.mCustomScrollbar.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./libs/js/jquery.mCustomScrollbar.js",
+              "./libs/js/front.js"
+            ]
           },
           "configurations": {
             "production": {
