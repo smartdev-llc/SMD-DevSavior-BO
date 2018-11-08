@@ -11,7 +11,7 @@ import { AlertComponent } from './directives';
 import { AuthGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { AlertService, AuthenticationService, UserService } from './services';
-import { HomeComponent, LoginComponent, RegisterComponent, DashboardLayoutComponent } from './components';
+import { ALL_COMPONENTS } from './components';
 
 @NgModule({
   imports: [
@@ -25,10 +25,7 @@ import { HomeComponent, LoginComponent, RegisterComponent, DashboardLayoutCompon
   declarations: [
     AppComponent,
     AlertComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    DashboardLayoutComponent
+    ...ALL_COMPONENTS
   ],
   providers: [
     AuthGuard,
