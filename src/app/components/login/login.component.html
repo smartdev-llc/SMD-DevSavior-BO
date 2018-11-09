@@ -4,19 +4,43 @@
       <div class="form-inner">
         <div class="logo text-uppercase"><span>JuniorViec</span><strong class="text-primary">Dashboard</strong></div>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-        <form method="get" class="text-left form-validate">
+        <form class="text-left form-validate" [formGroup]="loginForm" (ngSubmit)="onSubmit()" [ngClass]="{ 'was-validated': submitted }">
           <div class="form-group-material">
-            <input id="login-username" type="text" name="loginUsername" required data-msg="Please enter your username" class="input-material">
-            <label for="login-username" class="label-material">Username</label>
+            <input
+              id="email"
+              type="text"
+              data-msg="Please enter your email"
+              class="input-material"
+              formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div *ngIf="submitted && f.email.errors" class="invalid-field">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email is invalid</div>
+            </div>
+            <label for="email" class="label-material">Email</label>
           </div>
+
           <div class="form-group-material">
-            <input id="login-password" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
+            <input
+            id="login-password"
+            type="password"
+            required data-msg="Please enter your password"
+            class="input-material"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+            <div *ngIf="submitted && f.password.errors" class="invalid-field">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
             <label for="login-password" class="label-material">Password</label>
           </div>
-          <div class="form-group text-center"><a id="login" href="index.html" class="btn btn-primary">Login</a>
-            <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+          <alert></alert>
+          <div class="form-group text-center">
+            <button type="submit" id="login" class="btn btn-primary" [disabled]="loading">
+              <i *ngIf="loading" class="fa fa-spinner fa-spin" aria-hidden="true"></i> Login
+            </button>
           </div>
-        </form><a href="#" class="forgot-pass">Forgot Password?</a>
+        </form>
+        <a href="#" class="forgot-pass">Forgot Password?</a>
       </div>
     </div>
   </div>
