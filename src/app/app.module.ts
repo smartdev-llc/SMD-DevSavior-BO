@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { AlertComponent } from './directives';
-import { AuthGuard } from './guards';
+import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { AlertService, AuthenticationService, UserService } from './services';
 import { ALL_COMPONENTS } from './components';
@@ -29,6 +29,7 @@ import { ALL_COMPONENTS } from './components';
   ],
   providers: [
     AuthGuard,
+    LoggedGuard,
     AlertService,
     AuthenticationService,
     UserService,

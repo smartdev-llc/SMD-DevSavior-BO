@@ -1,0 +1,7 @@
+{
+  "apps" : [{
+    "name": "juniorviec-web-bo",
+    "script": "node",
+    "args": "server"
+  }]
+}

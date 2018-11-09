@@ -14,6 +14,16 @@ https://bootstrapious.com/p/bootstrap-4-dashboard
 *     GENERAL
 * ==========================================================
 */
+
+/* Common custom css */
+.invalid-field {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+/* End common custom css */
+
 .text-bold {
   font-weight: 700;
 }

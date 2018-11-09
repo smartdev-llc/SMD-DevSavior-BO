@@ -1,7 +1,7 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
 import { OBJECT_COMPONENTS } from './components';
-import { AuthGuard } from './guards';
+import { AuthGuard, LoggedGuard } from './guards';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -12,9 +12,9 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: OBJECT_COMPONENTS.HomeComponent},
     ],
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
-  { path: 'login', component: OBJECT_COMPONENTS.LoginComponent },
+  { path: 'login', component: OBJECT_COMPONENTS.LoginComponent, canActivate: [LoggedGuard] },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
