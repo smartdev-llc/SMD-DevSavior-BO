@@ -34,6 +34,6 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../dist/juniorviec-web-bo/index.html'));
 });
 
-app.listen(process.env.PORT || 8080, function() {
-  console.log('app running on port', process.env.PORT || 8080);
+app.listen(process.env.PORT || 3333, function() {
+  console.log('app running on port', process.env.PORT || 3333);
 });
