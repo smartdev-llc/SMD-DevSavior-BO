@@ -10,8 +10,9 @@ import { routing } from './app.routing';
 import { AlertComponent } from './directives';
 import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
-import { AlertService, AuthenticationService, UserService } from './services';
-import { ALL_COMPONENTS } from './components';
+import { ALL_SERVICES } from './services';
+import { ALL_COMPONENTS } from './components';;
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ALL_COMPONENTS } from './components';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    routing
+    routing,
+    PaginationModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -30,11 +32,9 @@ import { ALL_COMPONENTS } from './components';
   providers: [
     AuthGuard,
     LoggedGuard,
-    AlertService,
-    AuthenticationService,
-    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    ...ALL_SERVICES
   ],
   bootstrap: [AppComponent]
 })
