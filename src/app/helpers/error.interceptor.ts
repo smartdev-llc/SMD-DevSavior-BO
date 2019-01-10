@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       const exceptRouters = ['/login'];
       if (err.status === 401 && (exceptRouters.indexOf(this.router.url) === -1)) {
         // auto logout if 401 response returned from api
-        this.authService.logout();
+        this.authService.removeTokens();
         //redirect to the signin page or show login modal here
         this.router.navigate(['/login']);
       }
