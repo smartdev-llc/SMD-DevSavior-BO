@@ -31,7 +31,6 @@ export class UsersComponent implements OnInit {
       data => {
         this.users = data.list;
         this.totalUsers = data.total;
-        console.log(data);
       },
       error => {
       }

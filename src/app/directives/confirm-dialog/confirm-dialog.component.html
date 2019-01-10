@@ -1,0 +1,14 @@
+<div bsModal #confirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="confirm-title">{{ config.title }}</p>
+        <p class="confirm-description"><i class="fa fa-exclamation-circle confirm-icon" aria-hidden="true"></i> <span class="text">{{ config.description }}</span><p>
+        <div class="confirm-footer">
+          <button type="button" class="btn btn-default" (click)="decline()">No</button>
+          <button type="button" class="btn btn-primary" (click)="confirm()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

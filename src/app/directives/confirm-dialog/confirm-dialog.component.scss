@@ -1,0 +1,62 @@
+/* Css modal centered vertical */
+.modal.modal-dialog-centered {
+  text-align: center;
+  padding: 0!important;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+  }
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+}
+
+.confirm-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.confirm-description {
+  font-size: 15px;
+  font-weight: normal;
+  padding: 10px 10px 20px;
+  display: flex;
+  align-items: center;
+
+  .text {
+    margin-left: 10px;
+  }
+
+  .confirm-icon {
+    font-size: 40px;
+    color: #f7ba2a;
+  }
+}
+
+.confirm-footer {
+  text-align: right;
+
+  .btn-default,
+  .btn-primary {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    border-color: #12cd6a;
+    &:hover, &:focus {
+      background-color: #52e497;
+    }
+  }
+
+  .btn-default {
+    margin-right: 10px;
+  }
+}

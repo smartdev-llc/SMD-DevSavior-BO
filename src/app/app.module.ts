@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { AlertComponent } from './directives';
+import { AlertComponent, ConfirmDialogComponent } from './directives';
 import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ALL_SERVICES } from './services';
@@ -22,11 +24,14 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     ReactiveFormsModule,
     HttpClientModule,
     routing,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
     AlertComponent,
+    ConfirmDialogComponent,
     ...ALL_COMPONENTS
   ],
   providers: [

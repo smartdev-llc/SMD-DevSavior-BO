@@ -12,6 +12,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: OBJECT_COMPONENTS.HomeComponent},
       { path: 'users', component: OBJECT_COMPONENTS.UsersComponent},
+      { path: 'jobs', component: OBJECT_COMPONENTS.ListJobsComponent},
     ],
     canActivate: [AuthGuard]
   },
