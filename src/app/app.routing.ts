@@ -11,7 +11,9 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: OBJECT_COMPONENTS.HomeComponent},
-      { path: 'users', component: OBJECT_COMPONENTS.UsersComponent},
+      { path: 'student-users', component: OBJECT_COMPONENTS.StudentUsersComponent},
+      { path: 'company-users', component: OBJECT_COMPONENTS.CompanyUsersComponent},
+      { path: 'jobs', component: OBJECT_COMPONENTS.ListJobsComponent},
     ],
     canActivate: [AuthGuard]
   },
