@@ -3,11 +3,11 @@ import { UserService } from '../../services';
 import { HttpParams } from '@angular/common/http';
 
 @Component({
-  selector: 'users',
-  templateUrl: 'users.component.html',
-  styleUrls: ['users.component.scss']
+  selector: 'student-users.',
+  templateUrl: 'student-users.component.html',
+  styleUrls: ['student-users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class StudentUsersComponent implements OnInit {
   public users: Array<any> = [];
   public totalUsers: Number = 0;
   public usersQueryParams = {
@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
       .set('qs', this.usersQueryParams.qs)
       .set('size', this.usersQueryParams.size.toString())
       .set('page', this.usersQueryParams.page.toString());
-    this.userService.searchUsers(params).subscribe(
+    this.userService.searchStudentUsers(params).subscribe(
       data => {
         this.users = data.list;
         this.totalUsers = data.total;

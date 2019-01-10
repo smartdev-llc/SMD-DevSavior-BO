@@ -8,8 +8,15 @@ import { map } from 'rxjs/operators';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  searchUsers(params: HttpParams) {
+  searchStudentUsers(params: HttpParams) {
     return this.http.get('/students/search', { params })
+    .pipe(
+      map((response: any) => response)
+    );
+  }
+
+  searchCompanyUsers(params: HttpParams) {
+    return this.http.get('/companies/search', { params })
     .pipe(
       map((response: any) => response)
     );
