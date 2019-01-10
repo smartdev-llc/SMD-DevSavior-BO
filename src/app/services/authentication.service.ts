@@ -58,4 +58,8 @@ export class AuthenticationService {
     }
     return '';
   }
+
+  removeTokens(): void {
+    localStorage.removeItem('currentUser');
+  }
 }
