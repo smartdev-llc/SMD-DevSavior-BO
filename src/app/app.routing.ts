@@ -14,6 +14,7 @@ const appRoutes: Routes = [
       { path: 'student-users', component: OBJECT_COMPONENTS.StudentUsersComponent},
       { path: 'company-users', component: OBJECT_COMPONENTS.CompanyUsersComponent},
       { path: 'jobs', component: OBJECT_COMPONENTS.ListJobsComponent},
+      { path: 'hot-jobs', component: OBJECT_COMPONENTS.ListHotJobsComponent}
     ],
     canActivate: [AuthGuard]
   },

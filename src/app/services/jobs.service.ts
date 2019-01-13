@@ -21,4 +21,18 @@ export class JobsService {
         map((response: any) => response)
       );
   }
+
+  getHotJobs(params: HttpParams) {
+    return this.http.get('/bo/hotjobs', { params })
+      .pipe(
+        map((response: any) => response)
+      );
+  }
+
+  updateHotJobStatus(jobId, status, params = {}) {
+    return this.http.put<any>(`/hotjobs/${jobId}/${status}`, params)
+      .pipe(
+        map((response: any) => response)
+      );
+  }
 }

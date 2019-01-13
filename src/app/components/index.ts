@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { StudentUsersComponent } from './student-users/student-users.component';
 import { CompanyUsersComponent } from './company-users/company-users.component';
 import { ListJobsComponent } from './jobs/list-jobs/list-jobs.component';
+import { ListHotJobsComponent } from './hot-jobs/list-hot-jobs/list-hot-jobs.component';
 
 export const OBJECT_COMPONENTS = {
   DashboardLayoutComponent,
@@ -11,7 +12,8 @@ export const OBJECT_COMPONENTS = {
   HomeComponent,
   StudentUsersComponent,
   CompanyUsersComponent,
-  ListJobsComponent
+  ListJobsComponent,
+  ListHotJobsComponent
 };
 
 export const ALL_COMPONENTS = [
@@ -20,5 +22,6 @@ export const ALL_COMPONENTS = [
   HomeComponent,
   StudentUsersComponent,
   CompanyUsersComponent,
-  ListJobsComponent
+  ListJobsComponent,
+  ListHotJobsComponent
 ];
