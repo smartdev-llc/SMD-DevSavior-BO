@@ -1,0 +1,94 @@
+<div>
+  <div class="breadcrumb-holder">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/dashboard/home']">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Jobs</li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <div class="container-fluid">
+      <!-- Page Header-->
+      <header>
+        <h1 class="h3 display">Jobs</h1>
+      </header>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h4>Striped table with hover effect</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th style="width: 20%">Title</th>
+                      <th>Comany</th>
+                      <th>Job Type</th>
+                      <th>Slary</th>
+                      <th>Status</th>
+                      <th>Create at</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let job of jobs">
+                      <th>{{ job.id }}</th>
+                      <td>{{ job.title }}</td>
+                      <td>{{ job.company.name }}</td>
+                      <td>{{ job.jobType }}</td>
+                      <td>{{ job.toSalary }}</td>
+                      <td>{{ job.status }}</td>
+                      <td>{{ job.createdAt | date:'dd/MM/yyyy hh:mm' }}</td>
+                      <td>
+                        <div class="btn-group" dropdown>
+                          <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                                  aria-controls="dropdown-basic">
+                            Actions <span class="caret"></span>
+                          </button>
+                          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                              role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem" *ngIf="job.status === 'PENDING' || job.status === 'REJECTED'">
+                              <button class="dropdown-item" (click)="changeJobStatus('approve', job.id)">Approve</button>
+                            </li>
+                            <li role="menuitem" *ngIf="job.status === 'INACTIVE'">
+                              <button class="dropdown-item" (click)="changeJobStatus('approve', job.id)">Active</button>
+                            </li>
+                            <li role="menuitem" *ngIf="job.status === 'PENDING'">
+                              <button class="dropdown-item" (click)="changeJobStatus('reject', job.id)">Reject</button>
+                            </li>
+                            <li role="menuitem" *ngIf="job.status === 'ACTIVE'">
+                              <button class="dropdown-item" (click)="changeJobStatus('deactivate', job.id)">Deactive</button>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row" *ngIf="totalJobs > 0">
+                <div class="col">
+                  <pagination [totalItems]="totalJobs" [(ngModel)]="jobsQueryParams.page" (pageChanged)="pageChanged($event)" [itemsPerPage]="jobsQueryParams.size" [maxSize]="15"></pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Confirm Delete workingExperience modal dialog -->
+  <confirm-dialog
+    #confirmJobStatusDialog
+    [config]="{title: 'Are you sure?', description: 'Change job status'}"
+    (handleConfirm)="handleConfirm($event)">
+  </confirm-dialog>
+<!-- End Confirm Delete workingExperience modal dialog -->
+</div>
