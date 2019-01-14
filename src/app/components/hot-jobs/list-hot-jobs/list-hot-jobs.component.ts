@@ -12,7 +12,7 @@ import { JobsService } from '../../../services';
 export class ListHotJobsComponent implements OnInit {
   @ViewChild('confirmJobStatusDialog') confirmJobStatusDialog: ConfirmDialogComponent;
 
-  public jobs: Array<any> = [];
+  public hotJobs: Array<any> = [];
   public totalJobs: Number = 0;
   public jobsQueryParams = {
     qs: '',
@@ -33,7 +33,7 @@ export class ListHotJobsComponent implements OnInit {
       .set('page', this.jobsQueryParams.page.toString());
     this.jobsService.getHotJobs(params).subscribe(
       data => {
-        this.jobs = data.list;
+        this.hotJobs = data.list;
         this.totalJobs = data.total;
       },
       error => {
@@ -58,9 +58,9 @@ export class ListHotJobsComponent implements OnInit {
       const { jobId, status } = isConfirm;
       this.jobsService.updateHotJobStatus(jobId, status).subscribe(
         data => {
-          map(this.jobs, (item) => {
+          map(this.hotJobs, (item) => {
             if(item.id === jobId) {
-              item.status = status;
+              item.status = data.status;
               return item
             }
           })
