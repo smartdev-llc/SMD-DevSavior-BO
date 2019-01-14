@@ -20,10 +20,11 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <h4>Striped table with hover effect</h4>
+              <h4>List Jobs</h4>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
+              <h5 *ngIf="!jobs.length">No Results Found</h5>
+              <div class="table-responsive" *ngIf="jobs.length">
                 <table class="table table-striped table-hover">
                   <thead>
                     <tr>

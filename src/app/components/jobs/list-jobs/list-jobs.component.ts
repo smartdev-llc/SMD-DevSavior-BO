@@ -24,13 +24,6 @@ export class ListJobsComponent implements OnInit {
 
   ngOnInit() {
     this.getListJobs();
-    // this.jobsService.updateJobStatus(1, "ACTIVE").subscribe(
-    //   data => {
-    //     console.log(data)
-    //   },
-    //   error => {
-    //   }
-    // );
   }
 
   getListJobs() {
@@ -63,7 +56,6 @@ export class ListJobsComponent implements OnInit {
   handleConfirm(isConfirm: any) {
     if (isConfirm) {
       const { jobId, status } = isConfirm;
-      console.log(isConfirm)
       this.jobsService.updateJobStatus(jobId, status).subscribe(
         data => {
           map(this.jobs, (item) => {
