@@ -5,11 +5,11 @@ import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
 
 @Component({
-  selector: 'list-jobs',
-  templateUrl: 'list-jobs.component.html',
-  styleUrls: ['list-jobs.component.scss']
+  selector: 'list-hot-jobs',
+  templateUrl: 'list-hot-jobs.component.html',
+  styleUrls: ['list-hot-jobs.component.scss']
 })
-export class ListJobsComponent implements OnInit {
+export class ListHotJobsComponent implements OnInit {
   @ViewChild('confirmJobStatusDialog') confirmJobStatusDialog: ConfirmDialogComponent;
 
   public jobs: Array<any> = [];
@@ -31,7 +31,7 @@ export class ListJobsComponent implements OnInit {
       .set('qs', this.jobsQueryParams.qs)
       .set('size', this.jobsQueryParams.size.toString())
       .set('page', this.jobsQueryParams.page.toString());
-    this.jobsService.getJobs(params).subscribe(
+    this.jobsService.getHotJobs(params).subscribe(
       data => {
         this.jobs = data.list;
         this.totalJobs = data.total;
@@ -56,7 +56,7 @@ export class ListJobsComponent implements OnInit {
   handleConfirm(isConfirm: any) {
     if (isConfirm) {
       const { jobId, status } = isConfirm;
-      this.jobsService.updateJobStatus(jobId, status).subscribe(
+      this.jobsService.updateHotJobStatus(jobId, status).subscribe(
         data => {
           map(this.jobs, (item) => {
             if(item.id === jobId) {
