@@ -76,7 +76,7 @@ export class ListJobsComponent implements OnInit {
   }
 
   linkToJobDetail(id: any) {
-    this.router.navigate([`/dashboard/job/${id}`]);
+    this.router.navigate([`/dashboard/jobs/${id}`]);
   }
 
 }
