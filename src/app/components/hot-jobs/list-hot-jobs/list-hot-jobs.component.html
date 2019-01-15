@@ -59,7 +59,7 @@
                               <button class="dropdown-item" (click)="changeJobStatus('approve', hotJob.id)">Approve</button>
                             </li>
                             <li role="menuitem" *ngIf="hotJob.status === 'INACTIVE' || hotJob.status === 'REJECTED'">
-                              <button class="dropdown-item" (click)="changeJobStatus('active', hotJob.id)">Active</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('activate', hotJob.id)">Active</button>
                             </li>
                             <li role="menuitem" *ngIf="hotJob.status === 'PENDING'">
                               <button class="dropdown-item" (click)="changeJobStatus('reject', hotJob.id)">Reject</button>

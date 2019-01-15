@@ -39,8 +39,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let job of jobs">
-                      <th>{{ job.id }}</th>
+                    <tr class="table-row" *ngFor="let job of jobs" (click)="linkToJobDetail(job.id)">
+                      <td>{{ job.id }}</td>
                       <td>{{ job.title }}</td>
                       <td>{{ job.company.name }}</td>
                       <td>{{ job.jobType }}</td>
@@ -48,7 +48,7 @@
                       <td>{{ job.status }}</td>
                       <td>{{ job.createdAt | date:'dd/MM/yyyy hh:mm' }}</td>
                       <td>
-                        <div class="btn-group" dropdown>
+                        <div class="btn-group" dropdown (click)="$event.stopPropagation()">
                           <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                                   aria-controls="dropdown-basic">
                             Actions <span class="caret"></span>

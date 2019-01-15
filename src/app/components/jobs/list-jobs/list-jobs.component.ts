@@ -3,6 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'list-jobs',
@@ -20,7 +21,10 @@ export class ListJobsComponent implements OnInit {
     page: 0
   }
 
-  constructor(private jobsService: JobsService) { }
+  constructor(
+    private jobsService: JobsService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.getListJobs();
@@ -69,6 +73,10 @@ export class ListJobsComponent implements OnInit {
         }
       );
     }
+  }
+
+  linkToJobDetail(id: any) {
+    this.router.navigate([`/dashboard/job/${id}`]);
   }
 
 }
