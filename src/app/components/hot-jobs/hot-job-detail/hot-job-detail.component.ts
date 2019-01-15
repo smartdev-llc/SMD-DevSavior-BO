@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
@@ -16,7 +17,8 @@ export class HotJobDetailComponent implements OnInit {
 
   constructor(
     private jobsService: JobsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class HotJobDetailComponent implements OnInit {
 
   getListJobs() {
     const jobId = this.route.snapshot.paramMap.get('id');
-    this.jobsService.getJobDetail(jobId).subscribe(
+    this.jobsService.getHotJobDetail(jobId).subscribe(
       data => {
         this.jobDetail = data;
       },
@@ -43,9 +45,11 @@ export class HotJobDetailComponent implements OnInit {
       const { jobId, status } = isConfirm;
       this.jobsService.updateHotJobStatus(jobId, status).subscribe(
         data => {
+          this.toastr.success(`The job was updated successfully.`, 'Update Job');
           this.jobDetail.status = data.status
         },
         error => {
+          this.toastr.error('Update Failed!', 'Update Job');
         }
       );
     }

@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
@@ -16,7 +17,8 @@ export class JobDetailComponent implements OnInit {
 
   constructor(
     private jobsService: JobsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -44,8 +46,10 @@ export class JobDetailComponent implements OnInit {
       this.jobsService.updateJobStatus(jobId, status).subscribe(
         data => {
           this.jobDetail.status = status
+          this.toastr.success(`The job was updated successfully.`, 'Update Job');
         },
         error => {
+          this.toastr.error('Update Failed!', 'Update Job');
         }
       );
     }

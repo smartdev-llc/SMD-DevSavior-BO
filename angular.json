@@ -28,6 +28,7 @@
               "./libs/css/fontastic.css",
               "./libs/css/jquery.mCustomScrollbar.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": [
