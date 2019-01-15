@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
@@ -24,6 +25,7 @@ export class ListJobsComponent implements OnInit {
   constructor(
     private jobsService: JobsService,
     private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -67,9 +69,11 @@ export class ListJobsComponent implements OnInit {
               item.status = status;
               return item
             }
-          })
+          });
+          this.toastr.success(`The job id is ${jobId} was updated successfully.`, 'Update Job');
         },
         error => {
+          this.toastr.error('Update Failed!', 'Update Job');
         }
       );
     }

@@ -14,20 +14,20 @@
     <div class="container-fluid">
       <div class="row mt-3">
         <div class="col-md-7">
-          <h3 class="h3 display">{{ jobDetail.title }}</h3>
-          <p class="text-description" [innerHTML]="jobDetail.description"></p>
+          <h3 class="h3 display">{{ jobDetail.job?.title }}</h3>
+          <p class="text-description" [innerHTML]="jobDetail.job?.description"></p>
           <h3 class="h3 display">Salary</h3>
-          <p class="text-description">{{ jobDetail.fromSalary | salaryConverter:jobDetail.toSalary:'$' }}</p>
-          <h3 class="h3 display">Job Category</h3>
-          <p class="text-description">{{ jobDetail.category?.name }}</p>
+          <p class="text-description">{{ jobDetail.job?.fromSalary | salaryConverter:jobDetail.job?.toSalary:'$' }}</p>
+          <!-- <h3 class="h3 display">Job Category</h3>
+          <p class="text-description">{{ jobDetail.job?.category?.name }}</p>
           <h3 class="h3 display">Skills</h3>
-          <p class="text-description">{{ jobDetail?.skills | parseskill }}</p>
+          <p class="text-description">{{ jobDetail?.job?.skills | parseskill }}</p> -->
           <h3 class="h3 display">Job Type</h3>
-          <p class="text-description">{{ jobDetail.jobType }}</p>
+          <p class="text-description">{{ jobDetail.job?.jobType }}</p>
           <h3 class="h3 display">Requirements</h3>
-          <p class="text-description" [innerHTML]="jobDetail.requirements"></p>
+          <p class="text-description" [innerHTML]="jobDetail.job?.requirements"></p>
           <h3 class="h3 display">Benefits</h3>
-          <p class="text-description" [innerHTML]="jobDetail.benefits"></p>
+          <p class="text-description" [innerHTML]="jobDetail.job?.benefits"></p>
         </div>
         <div class="col-md-5">
           <h2 class="text-center">Company</h2>
