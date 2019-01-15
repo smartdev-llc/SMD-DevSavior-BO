@@ -39,7 +39,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let hotJob of hotJobs">
+                    <tr class="table-row"  *ngFor="let hotJob of hotJobs" (click)="linkToJobDetail(hotJob.id)">
                       <th>{{ hotJob.id }}</th>
                       <td>{{ hotJob.job.title }}</td>
                       <td>{{ hotJob.company.name }}</td>
@@ -48,7 +48,7 @@
                       <td>{{ hotJob.status }}</td>
                       <td>{{ hotJob.createdAt | date:'dd/MM/yyyy hh:mm' }}</td>
                       <td>
-                        <div class="btn-group" dropdown>
+                        <div class="btn-group" dropdown (click)="$event.stopPropagation()">
                           <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                                   aria-controls="dropdown-basic">
                             Actions <span class="caret"></span>
@@ -59,7 +59,7 @@
                               <button class="dropdown-item" (click)="changeJobStatus('approve', hotJob.id)">Approve</button>
                             </li>
                             <li role="menuitem" *ngIf="hotJob.status === 'INACTIVE' || hotJob.status === 'REJECTED'">
-                              <button class="dropdown-item" (click)="changeJobStatus('active', hotJob.id)">Active</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('activate', hotJob.id)">Active</button>
                             </li>
                             <li role="menuitem" *ngIf="hotJob.status === 'PENDING'">
                               <button class="dropdown-item" (click)="changeJobStatus('reject', hotJob.id)">Reject</button>

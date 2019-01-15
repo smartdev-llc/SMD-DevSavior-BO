@@ -35,4 +35,11 @@ export class JobsService {
         map((response: any) => response)
       );
   }
+
+  getJobDetail(jobId) {
+    return this.http.get(`/jobs/${jobId}`)
+      .pipe(
+        map((response: any) => response)
+      );
+  }
 }

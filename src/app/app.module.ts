@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { AlertComponent, ConfirmDialogComponent } from './directives';
+import { ParseSkill, SalaryConverterPipe } from './pipes';
 import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ALL_SERVICES } from './services';
@@ -32,6 +33,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     AppComponent,
     AlertComponent,
     ConfirmDialogComponent,
+    ParseSkill,
+    SalaryConverterPipe,
     ...ALL_COMPONENTS
   ],
   providers: [
