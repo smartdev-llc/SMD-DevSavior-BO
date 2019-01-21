@@ -42,10 +42,10 @@
         <div class="col">
           <h4>Status: {{ jobDetail.status }}</h4>
           <div class="my-3">
-            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'PENDING' || jobDetail.status === 'REJECTED'" (click)="changeJobStatus('ACTIVE', jobDetail.id)">Approve</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'PENDING'" (click)="changeJobStatus('REJECTED', jobDetail.id)">Reject</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'ACTIVE'" (click)="changeJobStatus('INACTIVE', jobDetail.id)">Deactive</button>
-            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'INACTIVE'" (click)="changeJobStatus('ACTIVE', jobDetail.id)">Active</button>
+            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'PENDING' || jobDetail.status === 'REJECTED'" (click)="changeJobStatus('approve', jobDetail.id)">Approve</button>
+            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'PENDING'" (click)="changeJobStatus('reject', jobDetail.id)">Reject</button>
+            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'ACTIVE'" (click)="changeJobStatus('deactivate', jobDetail.id)">Deactive</button>
+            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'INACTIVE'" (click)="changeJobStatus('activate', jobDetail.id)">Active</button>
           </div>
         </div>
       </div>
