@@ -14,9 +14,8 @@ export class JobsService {
       );
   }
 
-  updateJobStatus(jobId, status) {
-    const params = { value: status  };
-    return this.http.post<any>(`/jobs/${jobId}/status`, params)
+  updateJobStatus(jobId, status, params = {}) {
+    return this.http.put<any>(`/jobs/${jobId}/${status}`, params)
       .pipe(
         map((response: any) => response)
       );

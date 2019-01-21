@@ -56,16 +56,16 @@
                           <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                               role="menu" aria-labelledby="button-basic">
                             <li role="menuitem" *ngIf="job.status === 'PENDING' || job.status === 'REJECTED'">
-                              <button class="dropdown-item" (click)="changeJobStatus('ACTIVE', job.id)">Approve</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('approve', job.id)">Approve</button>
                             </li>
                             <li role="menuitem" *ngIf="job.status === 'INACTIVE'">
-                              <button class="dropdown-item" (click)="changeJobStatus('ACTIVE', job.id)">Active</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('activate', job.id)">Active</button>
                             </li>
                             <li role="menuitem" *ngIf="job.status === 'PENDING'">
-                              <button class="dropdown-item" (click)="changeJobStatus('REJECTED', job.id)">Reject</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('reject', job.id)">Reject</button>
                             </li>
                             <li role="menuitem" *ngIf="job.status === 'ACTIVE'">
-                              <button class="dropdown-item" (click)="changeJobStatus('INACTIVE', job.id)">Deactive</button>
+                              <button class="dropdown-item" (click)="changeJobStatus('deactivate', job.id)">Deactive</button>
                             </li>
                           </ul>
                         </div>

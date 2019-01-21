@@ -66,7 +66,7 @@ export class ListJobsComponent implements OnInit {
         data => {
           map(this.jobs, (item) => {
             if(item.id === jobId) {
-              item.status = status;
+              item.status = data.status;
               return item
             }
           });

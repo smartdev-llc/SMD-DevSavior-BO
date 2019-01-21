@@ -45,7 +45,7 @@ export class JobDetailComponent implements OnInit {
       const { jobId, status } = isConfirm;
       this.jobsService.updateJobStatus(jobId, status).subscribe(
         data => {
-          this.jobDetail.status = status
+          this.jobDetail.status = data.status;
           this.toastr.success(`The job was updated successfully.`, 'Update Job');
         },
         error => {
