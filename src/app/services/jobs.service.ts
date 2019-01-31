@@ -20,6 +20,13 @@ export class JobsService {
         map((response: any) => response)
       );
   }
+  
+  updateExpired(jobId) {
+    return this.http.put('/jobs/'+jobId+'/renew','')
+      .pipe(
+        map((response: any) => response)
+      );
+  }
 
   getHotJobs(params: HttpParams) {
     return this.http.get('/bo/hotjobs', { params })
