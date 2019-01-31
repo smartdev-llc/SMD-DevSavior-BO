@@ -42,7 +42,6 @@ export class ListJobsComponent implements OnInit {
       data => {
         this.jobs = data.list;
         this.totalJobs = data.total;
-        console.log(this.jobs);
       },
       error => {
       }
