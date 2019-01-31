@@ -35,7 +35,9 @@
                       <th>Slary</th>
                       <th>Status</th>
                       <th>Create at</th>
+                      <th>Expired at</th>
                       <th>Actions</th>
+                      <th>Renew</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,6 +49,7 @@
                       <td>{{ job.toSalary }}</td>
                       <td>{{ job.status }}</td>
                       <td>{{ job.createdAt | date:'dd/MM/yyyy hh:mm' }}</td>
+                      <td>{{ job.expiredAt | date:'dd/MM/yyyy hh:mm' }}</td>
                       <td>
                         <div class="btn-group" dropdown (click)="$event.stopPropagation()">
                           <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
@@ -68,6 +71,16 @@
                               <button class="dropdown-item" (click)="changeJobStatus('deactivate', job.id)">Deactive</button>
                             </li>
                           </ul>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="btn-group" (click)="$event.stopPropagation()">
+                          <button type="button" class="btn btn-warning" *ngIf="job.status === 'ACTIVE' && job.expiredAt <= timeNow" (click)="updateExpired(job.id)">
+                              Renew <span class="caret"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning disabled" *ngIf="!(job.status === 'ACTIVE' && job.expiredAt <= timeNow)">
+                              Renew <span class="caret"></span>
+                          </button>
                         </div>
                       </td>
                     </tr>

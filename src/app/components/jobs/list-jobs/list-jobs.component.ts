@@ -20,7 +20,8 @@ export class ListJobsComponent implements OnInit {
     qs: '',
     size: 15,
     page: 0
-  }
+  };
+  timeNow = Date.now();
 
   constructor(
     private jobsService: JobsService,
@@ -83,4 +84,14 @@ export class ListJobsComponent implements OnInit {
     this.router.navigate([`/dashboard/jobs/${id}`]);
   }
 
+  updateExpired(jobId: number){
+    this.jobsService.updateExpired(jobId).subscribe(
+      data=>{
+        this.toastr.success(`The job id is ${jobId} was updated successfully.`, 'Update Job');
+      },
+      error=>{
+        this.toastr.success('Update Failed!', 'Update Job');
+      });
+    this.ngOnInit();
+  }
 }
