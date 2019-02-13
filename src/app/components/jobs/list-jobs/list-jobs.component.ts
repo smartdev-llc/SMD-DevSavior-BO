@@ -90,8 +90,18 @@ export class ListJobsComponent implements OnInit {
         this.toastr.success(`The job id is ${jobId} was updated successfully.`, 'Update Job');
       },
       error=>{
-        this.toastr.success('Update Failed!', 'Update Job');
+        this.toastr.error('Update Failed!', 'Update Job');
       });
     this.ngOnInit();
+  }
+
+  sendJobNoty(){
+    this.jobsService.sendJobNotificationManually().subscribe(
+      data=>{
+        this.toastr.success('Send job notification for candidate successfully.', 'Send Job Notification');
+      },
+      error=>{
+        this.toastr.error('Send job notification for candidate Failed!', 'Send Job Notification');
+      });
   }
 }

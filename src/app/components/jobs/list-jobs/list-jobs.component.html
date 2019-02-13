@@ -20,7 +20,8 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <h4>List Jobs</h4>
+              <h4 style="display:inline-block">List Jobs</h4>
+              <button class="btn btn-outline-primary float-right" (click)="sendJobNoty()">Send Job Notification</button>
             </div>
             <div class="card-body">
               <h5 *ngIf="!jobs.length">No Results Found</h5>
