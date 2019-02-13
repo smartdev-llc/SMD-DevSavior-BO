@@ -55,4 +55,11 @@ export class JobsService {
         map((response: any) => response)
       );
   }
+
+  sendJobNotificationManually(){
+    return this.http.post('/jobs/alert-queues','')
+    .pipe(
+      map((response: any) => response)
+    );
+  }
 }
