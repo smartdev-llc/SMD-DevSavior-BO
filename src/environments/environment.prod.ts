@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  appUrl: 'https://admin.juniorviec.com',
-  apiEndpoint: 'https://juniorviec.com/api/v1'
+  appUrl: 'https://bo.juniorviec.com',
+  apiEndpoint: 'https://api.juniorviec.com'
 };
