@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  appUrl: 'https://admin.juniorviec.com',
-  apiEndpoint: 'https://juniorviec.com/api/v1'
+  appUrl: 'http://localhost:4200',
+  apiEndpoint: 'https://uat.api.juniorviec.com'
 };
 
 /*
