@@ -3,7 +3,9 @@ import { UserService } from '../../../services';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../../../directives'
-import { map } from 'rxjs/operators';
+import map from 'lodash/map';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'company-users',
@@ -23,7 +25,8 @@ export class CompanyUsersComponent implements OnInit {
   @ViewChild('confirmCompanyStatusDialog') confirmCompanyStatusDialog : ConfirmDialogComponent ;
 
   constructor(private userService: UserService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private router: Router) { }
 
   ngOnInit() {
     this.getListUsers();
@@ -64,18 +67,21 @@ export class CompanyUsersComponent implements OnInit {
         data => {
           map(this.users, (item) => {
             if(item.id === companyId) {
+              console.log(data);
+              
               item.status = data.status;
               return item
             }
           });
-          this.toastr.success(`The job id is ${companyId} was updated successfully.`, 'Update Job');
+          this.toastr.success(`The company id is ${companyId} was updated successfully.`, 'Update Company');
         },
         error => {
-          this.toastr.error('Update Failed!', 'Update Job');
+          this.toastr.error('Update Failed!', 'Update Company');
         }
       );
-      
     }
   }
-
+  linkToCompanyDetail(companyId) {
+    this.router.navigate([`/dashboard/company-users/${companyId}`]);
+  }
 }

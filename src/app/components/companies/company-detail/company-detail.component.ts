@@ -2,7 +2,7 @@
 import { ToastrService } from 'ngx-toastr';
 import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
-import { JobsService } from '../../../services';
+import { UserService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,12 +11,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['company-detail.component.scss']
 })
 export class CompanyDetailComponent implements OnInit {
-  @ViewChild('confirmJobStatusDialog') confirmJobStatusDialog: ConfirmDialogComponent;
+  @ViewChild('confirmCompanyStatusDialog') confirmCompanyStatusDialog : ConfirmDialogComponent ;
 
-  jobDetail: any = {};
+
+  companyDetail: any = {};
 
   constructor(
-    private jobsService: JobsService,
+    private usersService: UserService,
     private route: ActivatedRoute,
     private toastr: ToastrService
   ) { }
@@ -26,30 +27,30 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   getListJobs() {
-    const jobId = this.route.snapshot.paramMap.get('id');
-    this.jobsService.getJobDetail(jobId).subscribe(
+    const companyId = this.route.snapshot.paramMap.get('id');
+    this.usersService.getInformationCompany(companyId).subscribe(
       data => {
-        this.jobDetail = data;
+        this.companyDetail = data;
       },
       error => {
       }
     );
   }
 
-  changeJobStatus(status: string, jobId: number) {
-    this.confirmJobStatusDialog.openModal({status, jobId});
+  changeCompanyStatus(status: string, companyId: number) {
+    this.confirmCompanyStatusDialog.openModal({status, companyId});
   }
 
   handleConfirm(isConfirm: any) {
     if (isConfirm) {
-      const { jobId, status } = isConfirm;
-      this.jobsService.updateJobStatus(jobId, status).subscribe(
+      const { companyId, status } = isConfirm;
+      this.usersService.updateCompanyUserStatus(companyId, status).subscribe(
         data => {
-          this.jobDetail.status = data.status;
-          this.toastr.success(`The job was updated successfully.`, 'Update Job');
+          this.companyDetail.status = data.status;
+          this.toastr.success(`The company was updated successfully.`, 'Update company');
         },
         error => {
-          this.toastr.error('Update Failed!', 'Update Job');
+          this.toastr.error('Update Failed!', 'Update company');
         }
       );
     }

@@ -28,4 +28,10 @@ export class UserService {
       map((response: any) => response)
     );
   }
+  getInformationCompany(companyId) {
+    return this.http.get(`/companies/${companyId}`)
+    .pipe(
+      map((response: any) => response)
+    );
+  }
 }
