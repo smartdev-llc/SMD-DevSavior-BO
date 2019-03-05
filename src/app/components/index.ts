@@ -2,7 +2,8 @@ import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-la
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { StudentUsersComponent } from './student-users/student-users.component';
-import { CompanyUsersComponent } from './company-users/company-users.component';
+import { CompanyUsersComponent } from './companies/company-users/company-users.component';
+import { CompanyDetailComponent } from './companies/company-detail/company-detail.component';
 import { ListJobsComponent } from './jobs/list-jobs/list-jobs.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 import { ListHotJobsComponent } from './hot-jobs/list-hot-jobs/list-hot-jobs.component';
@@ -17,7 +18,8 @@ export const OBJECT_COMPONENTS = {
   ListJobsComponent,
   JobDetailComponent,
   ListHotJobsComponent,
-  HotJobDetailComponent
+  HotJobDetailComponent,
+  CompanyDetailComponent
 };
 
 export const ALL_COMPONENTS = [
@@ -29,5 +31,6 @@ export const ALL_COMPONENTS = [
   ListJobsComponent,
   JobDetailComponent,
   ListHotJobsComponent,
-  HotJobDetailComponent
+  HotJobDetailComponent,
+  CompanyDetailComponent
 ];

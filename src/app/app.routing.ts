@@ -13,6 +13,7 @@ const appRoutes: Routes = [
       { path: 'home', component: OBJECT_COMPONENTS.HomeComponent},
       { path: 'student-users', component: OBJECT_COMPONENTS.StudentUsersComponent},
       { path: 'company-users', component: OBJECT_COMPONENTS.CompanyUsersComponent},
+      { path: 'company-users/:id', component: OBJECT_COMPONENTS.CompanyDetailComponent},
       { path: 'jobs', component: OBJECT_COMPONENTS.ListJobsComponent},
       { path: 'jobs/:id', component: OBJECT_COMPONENTS.JobDetailComponent },
       { path: 'hot-jobs', component: OBJECT_COMPONENTS.ListHotJobsComponent},

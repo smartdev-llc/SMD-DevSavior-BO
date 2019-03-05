@@ -1,0 +1,64 @@
+<div>
+  <div class="breadcrumb-holder">
+    <div class="container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/dashboard/home']">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Company Detail</li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <div class="container-fluid">
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <h3 class="h3 display">{{ companyDetail.name }}</h3>
+          <p class="text-description" [innerHTML]="companyDetail.description"></p>
+          <h3 class="h3 display">Email</h3>
+          <p class="text-description">{{ companyDetail.email}}</p>
+          <h3 class="h3 display">Address</h3>
+          <p class="text-description">{{ companyDetail.address }}</p>
+          <h3 class="h3 display">Phone Number</h3>
+          <p class="text-description">
+            <a href="tel:{{ companyDetail.phoneNumber }}">{{ companyDetail.phoneNumber }}</a></p>
+          
+        </div>
+        <div class="col-md-6">
+          <h3 class="h3 display">Contact name</h3>
+          <p class="text-description">{{ companyDetail.contactName }}</p>
+          <h3 class="h3 display">Website</h3>
+          <p class="text-description">
+            <a class="text-description" href="{{companyDetail.website}}" target="_blank" rel="noopener noreferrer">{{companyDetail.website}}</a>
+          </p>
+          <h3 class="h3 display">Description</h3>
+          <p class="text-description" [innerHTML]="companyDetail.description"></p>
+          <h3 class="h3 display">Logo</h3>
+          <p class="text-description">
+              <!-- {{ companyDetail.logoURL }} -->
+            <img src="{{companyDetail.logoURL}}" alt="" srcset="">
+          </p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <h4>Status: {{ companyDetail.status }}</h4>
+          <div class="my-3">
+            <button type="button" class="btn btn-success mr-4" *ngIf="companyDetail.status === 'PENDING' || companyDetail.status === 'REJECTED'" (click)="changeCompanyStatus('approve', companyDetail.id)">Approve</button>
+            <button type="button" class="btn btn-danger mr-4" *ngIf="companyDetail.status === 'PENDING'" (click)="changeCompanyStatus('reject', companyDetail.id)">Reject</button>
+            <button type="button" class="btn btn-danger mr-4" *ngIf="companyDetail.status === 'ACTIVE'" (click)="changeCompanyStatus('deactivate', companyDetail.id)">Deactive</button>
+            <button type="button" class="btn btn-success mr-4" *ngIf="companyDetail.status === 'INACTIVE'" (click)="changeCompanyStatus('activate', companyDetail.id)">Active</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Confirm Delete workingExperience modal dialog -->
+  <confirm-dialog
+    #confirmCompanyStatusDialog
+    [config]="{title: 'Are you sure?', description: 'Change job status'}"
+    (handleConfirm)="handleConfirm($event)">
+  </confirm-dialog>
+<!-- End Confirm Delete workingExperience modal dialog -->
+</div>

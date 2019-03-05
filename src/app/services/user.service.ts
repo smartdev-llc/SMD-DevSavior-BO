@@ -21,4 +21,17 @@ export class UserService {
       map((response: any) => response)
     );
   }
+
+  updateCompanyUserStatus(companyId, status, params = {}) {
+    return this.http.put<any>(`/companies/${companyId}/${status}`, params)
+    .pipe(
+      map((response: any) => response)
+    );
+  }
+  getInformationCompany(companyId) {
+    return this.http.get(`/companies/${companyId}`)
+    .pipe(
+      map((response: any) => response)
+    );
+  }
 }
