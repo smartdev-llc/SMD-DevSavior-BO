@@ -41,7 +41,6 @@ export class CompanyUsersComponent implements OnInit {
       data => {
         this.users = data.list;
         this.totalUsers = data.total;
-        console.log(this.users)
       },
       error => {
       }
@@ -67,8 +66,6 @@ export class CompanyUsersComponent implements OnInit {
         data => {
           map(this.users, (item) => {
             if(item.id === companyId) {
-              console.log(data);
-              
               item.status = data.status;
               return item
             }
