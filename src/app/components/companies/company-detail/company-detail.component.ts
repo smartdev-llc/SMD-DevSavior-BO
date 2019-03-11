@@ -56,4 +56,20 @@ export class CompanyDetailComponent implements OnInit {
     }
   }
 
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'align': [] }],
+
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ 'color': [] }, { 'background': [] }],
+      ['blockquote'],
+
+      ['link']
+    ]
+  };
 }

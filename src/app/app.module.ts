@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { QuillModule } from 'ngx-quill'
+
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -26,6 +28,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     ReactiveFormsModule,
     HttpClientModule,
     routing,
+    QuillModule,
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
