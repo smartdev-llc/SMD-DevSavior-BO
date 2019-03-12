@@ -6,12 +6,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { QuillModule } from 'ngx-quill'
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { AlertComponent, ConfirmDialogComponent } from './directives';
-import { ParseSkill, SalaryConverterPipe } from './pipes';
+import { AlertComponent, ConfirmDialogComponent, UploadfileComponent } from './directives';
+import { ParseSkill, SalaryConverterPipe, PhotoURLConverterPipe } from './pipes';
 import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ALL_SERVICES } from './services';
@@ -26,6 +28,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     ReactiveFormsModule,
     HttpClientModule,
     routing,
+    QuillModule,
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
@@ -35,8 +38,11 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     AppComponent,
     AlertComponent,
     ConfirmDialogComponent,
+    UploadfileComponent,
     ParseSkill,
     SalaryConverterPipe,
+    PhotoURLConverterPipe,
+    FileSelectDirective,
     ...ALL_COMPONENTS
   ],
   providers: [

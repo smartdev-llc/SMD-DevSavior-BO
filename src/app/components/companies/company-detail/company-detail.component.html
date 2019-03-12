@@ -1,3 +1,4 @@
+
 <div>
   <div class="breadcrumb-holder">
     <div class="container-fluid">
@@ -10,50 +11,262 @@
     </div>
   </div>
 
-  <section>
-    <div class="container-fluid">
-      <div class="row mt-3">
-        <div class="col-md-6">
-          <h3 class="h3 display">{{ companyDetail.name }}</h3>
-          <p class="text-description" [innerHTML]="companyDetail.description"></p>
-          <h3 class="h3 display">Email</h3>
-          <p class="text-description">{{ companyDetail.email}}</p>
-          <h3 class="h3 display">Address</h3>
-          <p class="text-description">{{ companyDetail.address }}</p>
-          <h3 class="h3 display">Phone Number</h3>
-          <p class="text-description">
-            <a href="tel:{{ companyDetail.phoneNumber }}">{{ companyDetail.phoneNumber }}</a></p>
-          
-        </div>
-        <div class="col-md-6">
-          <h3 class="h3 display">Contact name</h3>
-          <p class="text-description">{{ companyDetail.contactName }}</p>
-          <h3 class="h3 display">Website</h3>
-          <p class="text-description">
-            <a class="text-description" href="{{companyDetail.website}}" target="_blank" rel="noopener noreferrer">{{companyDetail.website}}</a>
-          </p>
-          <h3 class="h3 display">Description</h3>
-          <p class="text-description" [innerHTML]="companyDetail.description"></p>
-          <h3 class="h3 display">Logo</h3>
-          <p class="text-description">
-              <!-- {{ companyDetail.logoURL }} -->
-            <img src="{{companyDetail.logoURL}}" alt="" srcset="">
-          </p>
-        </div>
+<div class="container main-secction">
+<div *ngIf="loadding" class="row load_all row load_all  text-centerfadeIn justify-content-center align-items-center">
+  <div>
+    <img src="/assets/load.gif" alt="">
+  </div>
+</div>
+  <div class="row">
+      <div class="mr-auto ml-auto col-md-11 col-sm-12 col-xs-12 image-section">
+          <img src="{{ companyDetail.coverURL || 'assets/41562ad4a92b16a.jpg' }}">
       </div>
-      <div class="row mt-3">
-        <div class="col">
-          <h4>Status: {{ companyDetail.status }}</h4>
-          <div class="my-3">
-            <button type="button" class="btn btn-success mr-4" *ngIf="companyDetail.status === 'PENDING' || companyDetail.status === 'REJECTED'" (click)="changeCompanyStatus('approve', companyDetail.id)">Approve</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="companyDetail.status === 'PENDING'" (click)="changeCompanyStatus('reject', companyDetail.id)">Reject</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="companyDetail.status === 'ACTIVE'" (click)="changeCompanyStatus('deactivate', companyDetail.id)">Deactive</button>
-            <button type="button" class="btn btn-success mr-4" *ngIf="companyDetail.status === 'INACTIVE'" (click)="changeCompanyStatus('activate', companyDetail.id)">Active</button>
+      <div class="row user-left-part mr-auto ml-auto col-md-11 col-sm-12 col-xs-12 image-section">
+          <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+              <div class="row ">
+                  <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                      <img src="{{ companyDetail.logoURL || 'assets/avatar-default.png' }}" class="rounded-circle">
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                    <div class="follow"></div>
+                      <!-- <button id="btn-contact" (click)="onUpload()" class="btn btn-success btn-block follow">Change Logo</button> 
+                       -->
+                      <app-uploadfile (loadUpload)="setLoading($event)" (changeImage)="changeImage($event)" [content]="logoBtn" [imageURL]="companyDetail.logoURL" [uploadURL]="logoUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
+                      </app-uploadfile>
+
+                      <app-uploadfile (loadUpload)="setLoading($event)" (changeImage)="changeImageCoverURL($event)" [content]="coverBtn" [imageURL]="companyDetail.coverURL" [uploadURL]="coverUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
+                      </app-uploadfile>
+                      
+                      <!-- <button (click)="triggerEventInputFile()" class="btn btn-warning btn-block"><i class="fa fa-file-image-o" aria-hidden="true"></i> Change Cover</button>    -->
+                      <div class="border mt-4"></div>
+                      <h4>Status: {{ companyDetail.status }}</h4>
+                      <div class="my-3">
+                        <button type="button" class="btn btn-success mr-4 btn-block" *ngIf="companyDetail.status === 'PENDING' || companyDetail.status === 'REJECTED'" (click)="changeCompanyStatus('approve', companyDetail.id)">Approve</button>
+                        <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'PENDING'" (click)="changeCompanyStatus('reject', companyDetail.id)">Reject</button>
+                        <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'ACTIVE'" (click)="changeCompanyStatus('deactivate', companyDetail.id)">Deactive</button>
+                        <button type="button" class="btn btn-success mr-4 btn-block" *ngIf="companyDetail.status === 'INACTIVE'" (click)="changeCompanyStatus('activate', companyDetail.id)">Active</button>
+                      </div>                            
+                  </div>
+                  <div class="row user-detail-row">
+                      <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                          
+                      </div>                           
+                  </div>
+                 
+              </div>
           </div>
-        </div>
+          <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+              <div class="row profile-right-section-row">
+                  <div class="col-md-12 profile-header">
+                      <div class="row">
+                          <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                              <h1>{{ companyDetail.name }}</h1>
+                              <p class="text-description" [innerHTML]="companyDetail.description"></p>
+                          </div>
+                          <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div *ngIf="isLoading" id="load">
+                          <div class="body">
+                            <span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                            </span>
+                            <div class="base">
+                              <span></span>
+                              <div class="face"></div>
+                            </div>
+                          </div>
+                          <div class="longfazers">
+                          </div> 
+                        </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                            <ul class="nav nav-tabs" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fa fa-id-card-o"></i> Information</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fa fa-pencil-square-o"></i> Edit Information</a>
+                              </li>                                                
+                            </ul>
+                          
+                          <!-- Tab panes -->
+                            <div class="tab-content mt-2">
+                              <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ companyDetail.email }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ companyDetail.phoneNumber }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Address</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ companyDetail.address }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                      <label>Contact name</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <p>{{ companyDetail.contactName }}</p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                      <label>Website</label>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <p><a href="{{ companyDetail.website }}" target="_blank" rel="noopener noreferrer">{{ companyDetail.website }}</a></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div role="tabpanel" class="tab-pane fade" id="buzz">
+                                <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{ companyDetail.email }}</p>
+                                        </div>
+                                    </div>
+                                  <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <label>Company name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="custom-input" name="name" formControlName="name">
+                                      <div *ngIf="submitted && f.name.invalid" class="error-input">
+                                        <div *ngIf="f.name.errors.required">
+                                          <i class="fa fa-warning" style="color:red"></i>   Company name is required. 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row mb-2">
+                                      <div class="col-md-4">
+                                          <label>Company Address</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="text" class="custom-input" name="address" formControlName="address">
+                                        <div *ngIf="submitted && f.address.invalid" class="error-input">
+                                          <div *ngIf="f.address.errors.required">
+                                            <i class="fa fa-warning" style="color:red"></i>   Email is required. 
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-2">
+                                      <div class="col-md-4">
+                                          <label>City</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <select class="custom-input" formControlName="city">
+                                              <option *ngFor="let city of cities" [value]="city.key">{{city.value}}</option>
+                                          </select>
+                                          <div *ngIf="submitted && f.city.invalid" class="error-input">
+                                            <div *ngIf="f.city.errors.required">
+                                              <i class="fa fa-warning" style="color:red"></i>   City is required. 
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-2">
+                                      <div class="col-md-4">
+                                          <label>Contact Name</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="text" class="custom-input" name="contact-name" formControlName="contactName">
+                                          <div *ngIf="submitted && f.contactName.invalid" class="error-input">
+                                            <div *ngIf="f.contactName.errors.required">
+                                              <i class="fa fa-warning" style="color:red"></i>   Contact name is required. 
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-2">
+                                      <div class="col-md-4">
+                                          <label>Phone Number</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="text" class="custom-input" name="phone-number" formControlName="phoneNumber">
+                                        <div *ngIf="submitted && f.phoneNumber.invalid" class="error-input">
+                                          <div *ngIf="f.phoneNumber.errors.required">
+                                            <i class="fa fa-warning" style="color:red"></i>   Phone number is required. 
+                                          </div>
+                                          <div *ngIf="f.phoneNumber.errors.pattern">
+                                            <i class="fa fa-warning" style="color:red"></i>   Wrong phone number. 
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <label>Website</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="text" class="custom-input" name="website" formControlName="website">
+                                      <div *ngIf="submitted && f.website.invalid" class="error-input">
+                                          <div *ngIf="f.website.errors.required">
+                                              <i class="fa fa-warning" style="color:red"></i>   Website is required. 
+                                            </div>
+                                        <div *ngIf="f.website.errors.pattern">
+                                          <i class="fa fa-warning" style="color:red"></i>   Wrong website URL format. 
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <label>Company description</label>
+                                          <br/>
+                                          <quill-editor [modules]="quillModules" 
+                                                        [style]="{height: '150px'}"
+                                                        [required]="true"
+                                                        formControlName="description">
+                                          </quill-editor>
+                                          <div *ngIf="submitted && f.description.invalid" class="error-input">
+                                            <div *ngIf="f.description.errors.required">
+                                              <i class="fa fa-warning" style="color:red"></i>   Description is required. 
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row mt-4">
+                                    <div class="col-md-12">
+                                      <button  type="submit" class="btn btn-success btn-block float-right btn-confirm">UPDATE</button> 
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-  </section>
+  </div>
+</div>
   <!-- Confirm Delete workingExperience modal dialog -->
   <confirm-dialog
     #confirmCompanyStatusDialog
