@@ -31,10 +31,10 @@
                     <div class="follow"></div>
                       <!-- <button id="btn-contact" (click)="onUpload()" class="btn btn-success btn-block follow">Change Logo</button> 
                        -->
-                      <app-uploadfile (changeImage)="changeImage($event)" [content]="logoBtn" [imageURL]="companyDetail.logoURL" [uploadURL]="logoUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
+                      <app-uploadfile (loadUpload)="setLoading($event)" (changeImage)="changeImage($event)" [content]="logoBtn" [imageURL]="companyDetail.logoURL" [uploadURL]="logoUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
                       </app-uploadfile>
 
-                      <app-uploadfile (changeImage)="changeImageCoverURL($event)" [content]="coverBtn" [imageURL]="companyDetail.coverURL" [uploadURL]="coverUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
+                      <app-uploadfile (loadUpload)="setLoading($event)" (changeImage)="changeImageCoverURL($event)" [content]="coverBtn" [imageURL]="companyDetail.coverURL" [uploadURL]="coverUploadURL" [maxSizeInByte]="5242880" [fileType]="['PNG', 'JPG', 'JPEG']">
                       </app-uploadfile>
                       
                       <!-- <button (click)="triggerEventInputFile()" class="btn btn-warning btn-block"><i class="fa fa-file-image-o" aria-hidden="true"></i> Change Cover</button>    -->

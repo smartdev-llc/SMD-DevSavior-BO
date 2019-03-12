@@ -35,6 +35,7 @@ export class UploadfileComponent implements OnInit {
   @ViewChild("inputFile")
   inputFile: ElementRef;
   @Output() changeImage = new EventEmitter();
+  @Output() loadUpload = new EventEmitter();
   public photo: Image;
   public previewImage: any;
   public showConfirmation = false;
@@ -81,7 +82,7 @@ export class UploadfileComponent implements OnInit {
           const reader = new FileReader();
           reader.onload = e => this.previewImage = reader.result;
           reader.readAsDataURL(file);
-          this.changeImage.emit(reader.result);
+          this.uploadFile();
         } else {
           this.showError(
             'wrongImageSize'
@@ -118,6 +119,7 @@ export class UploadfileComponent implements OnInit {
 
   uploadFile() {
     if (this.fileUploader.queue.length > 0 && !this.isLoading && !this.hasError) {
+      this.loadUpload.emit(true);
       this.startLoading();
       this.fileUploader.queue[0].upload();
     }
@@ -125,9 +127,12 @@ export class UploadfileComponent implements OnInit {
 
   onSuccessItem(item: FileItem, response: any, status: number, headers: ParsedResponseHeaders): any  {
     this.stopLoading();
+    this.loadUpload.emit(false);
     this.previewImage = null;
-    this.imageURL = JSON.parse(response).photoUrl;
-    this.changeImage.emit(JSON.parse(response).photoUrl);
+    this.imageURL = JSON.parse(response).photoURL;
+    this.changeImage.emit(JSON.parse(response).photoURL);
+    console.log(response);
+    
     this.toastrService.success(
       'uploadImage', 
       'uploadImageSuccess');
@@ -135,6 +140,7 @@ export class UploadfileComponent implements OnInit {
 
   onErrorItem(item: FileItem, response: any, status: number, headers: ParsedResponseHeaders): any  {
     this.stopLoading();
+    this.loadUpload.emit(false);
     this.showError(this.UPLOADING_ERROR);
   }
 

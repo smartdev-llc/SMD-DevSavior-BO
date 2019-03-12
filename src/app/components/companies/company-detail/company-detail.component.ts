@@ -95,10 +95,14 @@ export class CompanyDetailComponent implements OnInit  {
   }
 
   changeImage(value) {
-    this.companyDetail.logoURL = value;
+    this.companyDetail.logoURL = this.fixUrl(value);
   }
   changeImageCoverURL(value) {
-    this.companyDetail.coverURL = value;
+    this.companyDetail.coverURL = this.fixUrl(value);
+  }
+
+  setLoading(value) {
+    this.loadding = value;
   }
 
   changeCompanyStatus(status: string, companyId: number) {
