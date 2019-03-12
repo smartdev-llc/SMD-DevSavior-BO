@@ -1,0 +1,20 @@
+<div class="upload resume mt-3">
+    <div  class="loadessr blur-loading" *ngIf="isLoading">
+        <div class="loader"></div>
+    </div>
+  <input type="file"
+          name="post-image" 
+          class="inputfile" 
+          ng2FileSelect  
+          [uploader]="fileUploader"
+          (change)="checkImagePreview($event)"
+          #inputFile/>
+         
+        <button *ngIf="!previewImage && content=='Change Cover'" (click)="triggerEventInputFile()" class="btn btn-success btn-block "><i class="fa fa-file-image-o" aria-hidden="true"></i> {{content}}</button> 
+
+        <button *ngIf="!previewImage && content=='Change Logo'" (click)="triggerEventInputFile()" class="btn btn-warning btn-block "><i class="fa fa-file-image-o" aria-hidden="true"></i> {{content}}</button> 
+
+        <button *ngIf="previewImage" class="btn btn-success btn-block" (click)="uploadFile()">Upload {{content}}</button>
+        <div *ngIf="hasError" class="error">{{errorMessage}}</div>
+
+</div>

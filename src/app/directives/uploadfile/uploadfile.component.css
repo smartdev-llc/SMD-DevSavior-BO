@@ -1,0 +1,19 @@
+.upload {
+    position: relative;
+}
+input[type="file"] {
+    display: none;
+}
+.btn-upload {
+    margin-top: 7%;
+    margin-left: 5px;
+}
+.upload {
+    position: relative;
+}
+
+.controls .error {
+    color: red;
+font-size: 15px;
+margin: 5px 10px;
+}

@@ -1,40 +1,104 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import map from 'lodash/map';
-import { ConfirmDialogComponent } from '../../../directives';
+﻿import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDialogComponent } from '../../../directives';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Company } from  '../../../models/user';
+import { City } from '../../../models/city.enum';
 
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'company-detail',
   templateUrl: 'company-detail.component.html',
   styleUrls: ['company-detail.component.scss']
 })
-export class CompanyDetailComponent implements OnInit {
+export class CompanyDetailComponent implements OnInit  {
   @ViewChild('confirmCompanyStatusDialog') confirmCompanyStatusDialog : ConfirmDialogComponent ;
-
-
+  @ViewChild("inputFile")
+  inputFile: ElementRef;
   companyDetail: any = {};
+  public files: any[];
+  public logoUploadURL : string;
+  public coverUploadURL : string;
+  public coverBtn =  'Change Cover';
+  public logoBtn = 'Change Logo';
+  public updateProfileForm: FormGroup;
+  public companyId = this.route.snapshot.paramMap.get('id');
+  private PHONE_NUMBER_PATTERN = '^[0-9\+]{1,}[0-9\-]{3,15}$';
+  private WEBSITE_PATTERN = '^(http(s)?:\/\/)[\\w\\.\\-]+(\\.[\\w\.\\-]+)+[\\w\\-\\.\_\~\:\/?#\\[\\]\@\!\$\&\'\(\)\*\\+\,\;\=\\.]+$';
+  public cities = [
+    {key: 'DN', value: City.DN},
+    {key: 'HCM', value: City.HMC},
+    {key: 'HN', value: City.HN},
+    {key: 'OTHER', value: City.OTHER}
+  ];
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'align': [] }],
 
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ 'color': [] }, { 'background': [] }],
+      ['blockquote'],
+
+      ['link']
+    ]
+  };
+  public loadding = true;
+  public isLoading = true;
+  public submitted = false;
   constructor(
     private usersService: UserService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private formBuilder : FormBuilder,
+    private http: HttpClient
+  ) {
+    this.initUpdateProfileForm();
+    this.files = []; 
+   }
 
   ngOnInit() {
-    this.getListJobs();
+    this.getInformationCompany();
+    this.logoUploadURL = `/companies/${this.companyId}/logo`;
+    this.coverUploadURL = `/companies/${this.companyId}/cover`;
+    
   }
 
-  getListJobs() {
-    const companyId = this.route.snapshot.paramMap.get('id');
-    this.usersService.getInformationCompany(companyId).subscribe(
+  getInformationCompany() {
+    this.usersService.getInformationCompany(this.companyId).subscribe(
       data => {
         this.companyDetail = data;
+        this.isLoading = false;
+        if (this.companyDetail.logoURL!='') {
+          this.companyDetail.logoURL = this.fixUrl(this.companyDetail.logoURL);
+        }
+        if (this.companyDetail.coverURL!='') {        
+          this.companyDetail.coverURL = this.fixUrl(this.companyDetail.coverURL);
+        }
+        this.updateDataIntoForm(this.companyDetail);
+        this.loadding = false;
       },
       error => {
       }
     );
+  }
+
+  get f() {
+    return this.updateProfileForm.controls;
+  }
+
+  changeImage(value) {
+    this.companyDetail.logoURL = value;
+  }
+  changeImageCoverURL(value) {
+    this.companyDetail.coverURL = value;
   }
 
   changeCompanyStatus(status: string, companyId: number) {
@@ -56,20 +120,55 @@ export class CompanyDetailComponent implements OnInit {
     }
   }
 
-  quillModules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'align': [] }],
+ 
+  updateDataIntoForm(company: Company) {
+    this.updateProfileForm.setValue({
+      name: company.name,
+      address: company.address,
+      city: company.city,
+      phoneNumber: company.phoneNumber,
+      contactName: company.contactName,
+      website: company.website,
+      description: company.description,
+    });
+  }
+  
 
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+  initUpdateProfileForm() {
+    this.updateProfileForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      contactName: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(this.PHONE_NUMBER_PATTERN)]],
+      website: ['', [Validators.required,Validators.pattern(this.WEBSITE_PATTERN)]],
+      description: ['', [Validators.required]]
+    });
+  }
 
-      [{ 'size': ['small', false, 'large', 'huge'] }],
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ 'color': [] }, { 'background': [] }],
-      ['blockquote'],
-
-      ['link']
-    ]
-  };
+  updateProfile() {
+    this.isLoading = true;
+    this.submitted = true;
+    if(this.updateProfileForm.invalid) {
+      this.isLoading = false;
+      return;
+    }
+    this.usersService.updateInformationCompany(this.updateProfileForm.value, this.companyDetail.id)
+                        .subscribe(data => {
+                          this.isLoading = false;
+                          this.toastr.success(`The company was updated successfully.`, 'Update company');
+                          this.companyDetail = data;
+                          this.getInformationCompany()
+                      },
+                      error => {
+                            throw error;
+                      })
+  }
+  private fixUrl(url: string) {
+    if (url && url.indexOf('http://') >= 0 || url.indexOf('https://') >= 0) {
+      return url;
+    } else {
+      return environment.apiEndpoint + url;
+    }
+  }
 }
