@@ -84,11 +84,11 @@ export class UploadfileComponent implements OnInit {
           reader.readAsDataURL(file);
           this.uploadFile();
         } else {
-          this.showError(
-            'wrongImageSize'
-            + this.fileType.toString() 
-            + 'endLessThan'
-            );
+          this.stopLoading();
+          this.loadUpload.emit(false);
+          this.showError(this.UPLOADING_ERROR);
+          this.toastrService.error(this.errorMessage,'Upload Image')
+                
         }
       }
   }
@@ -142,6 +142,8 @@ export class UploadfileComponent implements OnInit {
     this.stopLoading();
     this.loadUpload.emit(false);
     this.showError(this.UPLOADING_ERROR);
+    this.toastrService.error(this.errorMessage,'Upload Image')
+
   }
 
   startLoading() {
