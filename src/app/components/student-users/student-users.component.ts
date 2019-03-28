@@ -1,13 +1,18 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services';
 import { HttpParams } from '@angular/common/http';
-
+import { ConfirmDialogComponent } from '../../directives'
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'lodash/map'
 @Component({
   selector: 'student-users.',
   templateUrl: 'student-users.component.html',
   styleUrls: ['student-users.component.scss']
 })
 export class StudentUsersComponent implements OnInit {
+  @ViewChild('confirmUserStatusDialog') confirmUserStatusDialog : ConfirmDialogComponent ;
+  @ViewChild('confirmDeleteUserDialog') confirmDeleteUserDialog : ConfirmDialogComponent ;
+
   public users: Array<any> = [];
   public totalUsers: Number = 0;
   public usersQueryParams = {
@@ -16,7 +21,8 @@ export class StudentUsersComponent implements OnInit {
     page: 0
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private toastr :ToastrService) { }
 
   ngOnInit() {
     this.getListUsers();
@@ -45,4 +51,40 @@ export class StudentUsersComponent implements OnInit {
     this.getListUsers();
   }
 
+  delete(id) {
+    this.confirmDeleteUserDialog.openModal({id});
+  }
+
+  handleConfirmDel(isConfirm: any) {
+    if (isConfirm) {
+      const id = isConfirm;
+      this.userService.deleteStudent(id.id).subscribe(
+        data =>{
+          this.getListUsers(); 
+          this.toastr.success(`The Student id is ${id.id} was deleted successfully.`, 'Deleted Student');
+        }
+      );
+    } else {
+      this.toastr.error('Deleted Failed!', 'Deleted Student');
+    }
+  }
+
+  changeUserStatus(status: string, userId: number) {
+    this.confirmUserStatusDialog.openModal({status, userId});
+  }
+
+  handleConfirmChange(isConfirm: any) {
+    if (isConfirm) {
+      const {userId , status} = isConfirm;
+      this.userService.updateStudentUserStatus(userId, status).subscribe(
+        data => {
+          this.getListUsers(); 
+          this.toastr.success(`The student user id is ${userId} was updated successfully.`, 'Update student user');
+        },
+        error => {
+          this.toastr.error('Update Failed!', 'Update student user');
+        }
+      );
+    }
+  }
 }
