@@ -45,7 +45,20 @@
                         <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'PENDING'" (click)="changeCompanyStatus('reject', companyDetail.id)">Reject</button>
                         <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'ACTIVE'" (click)="changeCompanyStatus('deactivate', companyDetail.id)">Deactive</button>
                         <button type="button" class="btn btn-success mr-4 btn-block" *ngIf="companyDetail.status === 'INACTIVE'" (click)="changeCompanyStatus('activate', companyDetail.id)">Active</button>
-                      </div>                            
+                      </div>   
+                      <div class="border mt-4"></div>
+                      <h4>Jobs</h4>
+                      <div class="chart mt-2">
+                        <canvas baseChart
+                          [data]="pieChartData"
+                          [labels]="pieChartLabels"
+                          [chartType]="pieChartType"
+                          [options]="pieChartOptions"
+                          [plugins]="pieChartPlugins"
+                          [colors]="pieChartColors"
+                          [legend]="pieChartLegend">
+                        </canvas>
+                      </div>                         
                   </div>
                   <div class="row user-detail-row">
                       <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -270,7 +283,7 @@
   <!-- Confirm Delete workingExperience modal dialog -->
   <confirm-dialog
     #confirmCompanyStatusDialog
-    [config]="{title: 'Are you sure?', description: 'Change job status'}"
+    [config]="{title: 'Are you sure?', description: 'Change status of this company'}"
     (handleConfirm)="handleConfirm($event)">
   </confirm-dialog>
 <!-- End Confirm Delete workingExperience modal dialog -->

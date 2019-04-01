@@ -54,7 +54,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let user of users" (click)="linkToCompanyDetail(user.id)">
+                    <tr *ngFor="let user of users" (click)="linkToCompanyDetail(user.slug,user.id)">
                       <th scope="row">{{ user.id }}</th>
                       <td>{{ user.name }}</td>
                       <td>{{ user.contactName }}</td>
