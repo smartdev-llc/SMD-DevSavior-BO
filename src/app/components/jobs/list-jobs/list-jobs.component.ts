@@ -48,6 +48,21 @@ export class ListJobsComponent implements OnInit {
     );
   }
 
+  getSearchJobs() {
+    const params = new HttpParams()
+      .set('qs', this.jobsQueryParams.qs)
+      .set('size', this.jobsQueryParams.size.toString())
+      .set('page', this.jobsQueryParams.page.toString());
+    this.jobsService.searchJobs(params).subscribe(
+      data => {
+        this.jobs = data.list;
+        this.totalJobs = data.total;
+      },
+      error => {
+      }
+    );
+  }
+
   pageChanged(event: any): void {
     this.jobsQueryParams = {
       ...this.jobsQueryParams,

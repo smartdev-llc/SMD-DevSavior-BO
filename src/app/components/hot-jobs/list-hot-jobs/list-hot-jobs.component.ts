@@ -80,7 +80,7 @@ export class ListHotJobsComponent implements OnInit {
   }
 
   linkToJobDetail(id: any) {
-    this.router.navigate([`/dashboard/hot-jobs/${id}`]);
+    this.router.navigate([`/dashboard/jobs/${id}`]);
   }
 
 }
