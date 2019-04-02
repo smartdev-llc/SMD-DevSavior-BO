@@ -10,6 +10,7 @@ import { QuillModule } from 'ngx-quill';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
+import { ChartsModule } from 'ng2-charts';
 
 import { AlertComponent, ConfirmDialogComponent, UploadfileComponent } from './directives';
 import { ParseSkill, SalaryConverterPipe, PhotoURLConverterPipe } from './pipes';
@@ -28,6 +29,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     HttpClientModule,
     routing,
     QuillModule,
+    ChartsModule,
     FileUploadModule,
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),

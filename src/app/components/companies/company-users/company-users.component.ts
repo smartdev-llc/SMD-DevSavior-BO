@@ -41,6 +41,7 @@ export class CompanyUsersComponent implements OnInit {
       data => {
         this.users = data.list;
         this.totalUsers = data.total;
+        console.log(data)
       },
       error => {
       }
@@ -78,7 +79,7 @@ export class CompanyUsersComponent implements OnInit {
       );
     }
   }
-  linkToCompanyDetail(companyId) {
-    this.router.navigate([`/dashboard/company-users/${companyId}`]);
+  linkToCompanyDetail(companySlug, companyId) {
+    this.router.navigate([`/dashboard/company-users/${companySlug}/${companyId}`]);
   }
 }

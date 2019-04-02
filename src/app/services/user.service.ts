@@ -54,4 +54,22 @@ export class UserService {
       map((response: any) => response)
     );
   }
+
+  countStudentsByStatus(status){
+    return this.http.get(`/students/count?${status}`)
+    .pipe(
+      map(
+        (response: any) => response
+      )
+    )
+  }
+
+  countCompaniesByStatus(status){
+    return this.http.get(`/companies/count?${status}`)
+    .pipe(
+      map(
+        (response: any) => response
+      )
+    )
+  }
 }
