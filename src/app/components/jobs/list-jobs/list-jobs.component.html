@@ -57,7 +57,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="table-row" *ngFor="let job of jobs" (click)="linkToJobDetail(job.id)">
+                    <tr class="table-row" *ngFor="let job of jobs" (click)="linkToJobDetail(job.slug)">
                       <td>{{ job.id }}</td>
                       <td>{{ job.title }}</td>
                       <td>{{ job.company.name }}</td>
