@@ -13,7 +13,7 @@ import { routing } from './app.routing';
 import { ChartsModule } from 'ng2-charts';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { AlertComponent, ConfirmDialogComponent, UploadfileComponent } from './directives';
-import { ParseSkill, SalaryConverterPipe, PhotoURLConverterPipe } from './pipes';
+import { ParseSkill, SalaryConverterPipe, PhotoURLConverterPipe, KeyValuePipe } from './pipes';
 import { AuthGuard, LoggedGuard } from './guards';
 import { JwtInterceptor, ErrorInterceptor } from './helpers';
 import { ALL_SERVICES } from './services';
@@ -43,6 +43,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
     ConfirmDialogComponent,
     UploadfileComponent,
     ParseSkill,
+    KeyValuePipe,
     SalaryConverterPipe,
     PhotoURLConverterPipe,
     ...ALL_COMPONENTS

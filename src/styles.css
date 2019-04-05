@@ -3100,19 +3100,31 @@ a > code {
   transform: scale(1);
 }
 }
+body{
+  position: relative;
+}
+span.title {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+}
 #loading-bar-spinner{
   position: absolute;
   z-index: 1;
   background: #FFF;
   height: 100%;
   width: 100%;
+  top: 0px !important;
+  left: 0px !important;
 }
 #loading-bar-spinner .spinner-icon{
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 99;
-  width: 25px;
-  height: 25px;
-  transform: translate(-50%,-50%)
+  width: 150px !important;
+  height: 150px !important;
+  margin-top: -75px;
+  margin-left: -75px;
+  /* transform: translate(-50%,-50%) !important */
 }

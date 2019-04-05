@@ -4,6 +4,7 @@ import map from 'lodash/map';
 import { ConfirmDialogComponent } from '../../../directives';
 import { JobsService } from '../../../services';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'job-detail',
@@ -22,14 +23,15 @@ export class JobDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListJobs();
+    this.getJobs();
   }
 
-  getListJobs() {
+  getJobs() {
     const jobId = this.route.snapshot.paramMap.get('id');
     this.jobsService.getJobDetail(jobId).subscribe(
       data => {
         this.jobDetail = data;
+        this.jobDetail.company.logoURL = this.fixUrl(this.jobDetail.company.logoURL);
       },
       error => {
       }
@@ -55,4 +57,11 @@ export class JobDetailComponent implements OnInit {
     }
   }
 
+  private fixUrl(url: string) {
+    if (url && url.indexOf('http://') >= 0 || url.indexOf('https://') >= 0) {
+      return url;
+    } else {
+      return environment.apiEndpoint + url;
+    }
+  }
 }
