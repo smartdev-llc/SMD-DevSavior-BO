@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   appUrl: 'http://localhost:4200',
-  apiEndpoint: 'https://uat.api.juniorviec.com'
+  apiEndpoint: 'https://api.devsavior.com'
 };
 
 /*
