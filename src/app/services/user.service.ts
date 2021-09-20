@@ -40,4 +40,36 @@ export class UserService {
   updateInformationCompany(company: UpdateCompanyProfileRequest, companyId): Observable<any> {
     return this.http.put(`/companies/${companyId}/info`, company);
   }
+
+  deleteStudent(userId) {
+    return this.http.delete(`/students/${userId}`)
+    .pipe(
+      map((response: any) => response)
+    );
+  }
+
+  updateStudentUserStatus(studentId, status, params = {}) {
+    return this.http.put<any>(`/students/${studentId}/${status}`, params)
+    .pipe(
+      map((response: any) => response)
+    );
+  }
+
+  countStudentsByStatus(status){
+    return this.http.get(`/students/count?${status}`)
+    .pipe(
+      map(
+        (response: any) => response
+      )
+    )
+  }
+
+  countCompaniesByStatus(status){
+    return this.http.get(`/companies/count?${status}`)
+    .pipe(
+      map(
+        (response: any) => response
+      )
+    )
+  }
 }

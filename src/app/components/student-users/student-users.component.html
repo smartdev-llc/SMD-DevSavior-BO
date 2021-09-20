@@ -34,6 +34,7 @@
           <div class="card">
             <div class="card-header">
               <h4>List Student Users</h4>
+              <h4 class="float-right">Total Student Users: {{ totalUsers }}</h4>
             </div>
             <div class="card-body">
               <h5 *ngIf="!users.length">No Results Found</h5>
@@ -47,6 +48,8 @@
                       <th>Email</th>
                       <th>Status</th>
                       <th>Create at</th>
+                      <th>Delete</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -57,6 +60,31 @@
                       <td>{{ user.email }}</td>
                       <td>{{ user.status }}</td>
                       <td>{{ user.createdAt | date:'dd/MM/yyyy hh:mm' }}</td>
+                      <td><button class="btn btn-error" (click)="delete(user.id)">Delete</button></td>
+                      <td>
+                        <div class="btn-group" dropdown (click)="$event.stopPropagation()">
+                            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                                    aria-controls="dropdown-basic">
+                              Actions <span class="caret"></span>
+                            </button>
+                            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                role="menu" aria-labelledby="button-basic">
+                              <!-- <li role="menuitem" *ngIf="user.status === 'PENDING' || user.status === 'REJECTED'">
+                                <button class="dropdown-item" (click)="changeUserStatus('approve', user.id)">Approve</button>
+                              </li> -->
+                              <li role="menuitem" *ngIf="user.status === 'INACTIVE'">
+                                <button class="dropdown-item" (click)="changeUserStatus('activate', user.id)">Active</button>
+                              </li>
+                              <!-- <li role="menuitem" *ngIf="user.status === 'PENDING'">
+                                <button class="dropdown-item" (click)="changeUserStatus('reject', user.id)">Reject</button>
+                              </li> -->
+                              <li role="menuitem" *ngIf="user.status === 'ACTIVE'">
+                                <button class="dropdown-item" (click)="changeUserStatus('deactivate', user.id)">Deactive</button>
+                              </li>
+                            </ul>
+                          </div>
+                      
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -72,4 +100,16 @@
       </div>
     </div>
   </section>
+  <confirm-dialog
+  #confirmDeleteUserDialog
+  [config]="{title: 'Are you sure?', description: 'Delete this Student'}"
+  (handleConfirm)="handleConfirmDel($event)">
+</confirm-dialog>
+    <!-- Confirm Delete workingExperience modal dialog -->
+    <confirm-dialog
+    #confirmUserStatusDialog
+    [config]="{title: 'Are you sure?', description: 'Change student user status'}"
+    (handleConfirm)="handleConfirmChange($event)">
+  </confirm-dialog>
+<!-- End Confirm Delete workingExperience modal dialog -->
 </div>

@@ -9,6 +9,8 @@ import { City } from '../../../models/city.enum';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 @Component({
   selector: 'company-detail',
   templateUrl: 'company-detail.component.html',
@@ -26,6 +28,7 @@ export class CompanyDetailComponent implements OnInit  {
   public logoBtn = 'Change Logo';
   public updateProfileForm: FormGroup;
   public companyId = this.route.snapshot.paramMap.get('id');
+  public companySlug = this.route.snapshot.paramMap.get('slug');
   private PHONE_NUMBER_PATTERN = '^[0-9\+]{1,}[0-9\-]{3,15}$';
   private WEBSITE_PATTERN = '^(http(s)?:\/\/)[\\w\\.\\-]+(\\.[\\w\.\\-]+)+[\\w\\-\\.\_\~\:\/?#\\[\\]\@\!\$\&\'\(\)\*\\+\,\;\=\\.]+$';
   public cities = [
@@ -65,16 +68,23 @@ export class CompanyDetailComponent implements OnInit  {
    }
 
   ngOnInit() {
-    this.getInformationCompany();
-    this.logoUploadURL = `/companies/${this.companyId}/logo`;
-    this.coverUploadURL = `/companies/${this.companyId}/cover`;
-    
-  }
+   this.getInformationCompany();
+   
+  //  this.logoUploadURL = `/companies/${this.companyDetail.id}/logo`;
+  //  this.coverUploadURL = `/companies/${this.companyDetail.id}/cover`;
 
+   this.logoUploadURL = `/companies/${this.companyId}/logo`;
+   this.coverUploadURL = `/companies/${this.companyId}/cover`;
+
+  }
+  
   getInformationCompany() {
-    this.usersService.getInformationCompany(this.companyId).subscribe(
+    this.usersService.getInformationCompany(this.companySlug).subscribe(
       data => {
         this.companyDetail = data;
+        // this.logoUploadURL = `/companies/${this.companyDetail.id}/logo`;
+        // this.coverUploadURL = `/companies/${this.companyDetail.id}/cover`;
+        
         this.isLoading = false;
         if (this.companyDetail.logoURL!='') {
           this.companyDetail.logoURL = this.fixUrl(this.companyDetail.logoURL);
@@ -162,6 +172,7 @@ export class CompanyDetailComponent implements OnInit  {
                           this.isLoading = false;
                           this.toastr.success(`The company was updated successfully.`, 'Update company');
                           this.companyDetail = data;
+
                           this.getInformationCompany()
                       },
                       error => {
@@ -174,5 +185,31 @@ export class CompanyDetailComponent implements OnInit  {
     } else {
       return environment.apiEndpoint + url;
     }
+  }
+
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'bottom',
+    }
+  };
+  public pieChartLabels: Label[] = ['All', 'Current'];
+  public pieChartData: number[] = [800, 300];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  // public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)'],
+    },
+  ];
+
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
   }
 }

@@ -10,47 +10,6 @@
     </div>
   </div>
 
-  <section>
-    <div class="container-fluid">
-      <div class="row mt-3">
-        <div class="col-md-7">
-          <h3 class="h3 display">{{ jobDetail.title }}</h3>
-          <p class="text-description" [innerHTML]="jobDetail.description"></p>
-          <h3 class="h3 display">Salary</h3>
-          <p class="text-description">{{ jobDetail.fromSalary | salaryConverter:jobDetail.toSalary:'$' }}</p>
-          <h3 class="h3 display">Job Category</h3>
-          <p class="text-description">{{ jobDetail.category?.name }}</p>
-          <h3 class="h3 display">Skills</h3>
-          <p class="text-description">{{ jobDetail?.skills | parseskill }}</p>
-          <h3 class="h3 display">Job Type</h3>
-          <p class="text-description">{{ jobDetail.jobType }}</p>
-          <h3 class="h3 display">Requirements</h3>
-          <p class="text-description" [innerHTML]="jobDetail.requirements"></p>
-          <h3 class="h3 display">Benefits</h3>
-          <p class="text-description" [innerHTML]="jobDetail.benefits"></p>
-        </div>
-        <div class="col-md-5">
-          <h2 class="text-center">Company</h2>
-          <h4>{{ jobDetail.company?.name }}</h4>
-          <p class="text-description">{{ jobDetail.company?.contactName }}</p>
-          <p class="text-description">{{ jobDetail.company?.email }}</p>
-          <p class="text-description">{{ jobDetail.company?.address }}</p>
-          <p class="text-description">{{ jobDetail.company?.phoneNumber }}</p>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col">
-          <h4>Status: {{ jobDetail.status }}</h4>
-          <div class="my-3">
-            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'PENDING' || jobDetail.status === 'REJECTED'" (click)="changeJobStatus('approve', jobDetail.id)">Approve</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'PENDING'" (click)="changeJobStatus('reject', jobDetail.id)">Reject</button>
-            <button type="button" class="btn btn-danger mr-4" *ngIf="jobDetail.status === 'ACTIVE'" (click)="changeJobStatus('deactivate', jobDetail.id)">Deactive</button>
-            <button type="button" class="btn btn-success mr-4" *ngIf="jobDetail.status === 'INACTIVE'" (click)="changeJobStatus('activate', jobDetail.id)">Active</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   <!-- Confirm Delete workingExperience modal dialog -->
   <confirm-dialog
     #confirmJobStatusDialog
@@ -58,4 +17,63 @@
     (handleConfirm)="handleConfirm($event)">
   </confirm-dialog>
 <!-- End Confirm Delete workingExperience modal dialog -->
+</div>
+
+
+<div>
+    <div class="col-lg-8 post-list mr-auto ml-auto">
+        <div class="single-post d-flex flex-row">
+          <div class="thumb">
+            <img src="{{jobDetail.company?.logoURL}}" alt="">
+            <ul class="tags">
+                <ng-template ngFor let-skill [ngForOf]="jobDetail?.skills | keyValue">
+                  <li>
+                      {{skill.value.name}}
+                  </li>
+                </ng-template>
+              
+            </ul>
+            <hr>
+            <p>Status: {{ jobDetail.status }}</p>
+            <div class="my-3">
+                <button type="button" class="btn py-2 px-4 btn-success mr-4" *ngIf="jobDetail.status === 'PENDING' || jobDetail.status === 'REJECTED'" (click)="changeJobStatus('approve', jobDetail.id)">Approve</button>
+                <button type="button" class="btn py-2 px-4 btn-danger mr-4" *ngIf="jobDetail.status === 'PENDING'" (click)="changeJobStatus('reject', jobDetail.id)">Reject</button>
+                <button type="button" class="btn py-2 px-4 btn-danger mr-4" *ngIf="jobDetail.status === 'ACTIVE'" (click)="changeJobStatus('deactivate', jobDetail.id)">Deactive</button>
+                <button type="button" class="btn py-2 px-4 btn-success mr-4" *ngIf="jobDetail.status === 'INACTIVE'" (click)="changeJobStatus('activate', jobDetail.id)">Active</button>
+              </div>
+          </div>
+          <div class="details ml-4">
+              <div class="job-post-item-header d-flex align-items-center">
+                  <h2 class="mr-3 text-black h4">{{ jobDetail.title }}</h2>
+                  <div class="badge-wrap">
+                   <span class="border border-warning text-warning py-2 px-4 rounded">{{ jobDetail.category?.name }}</span>
+                  </div>
+                </div>
+            <div class="title d-flex flex-row justify-content-between">
+              <div class="titles">
+                <h5>-- {{ jobDetail.jobType }} --</h5>
+                <h6>{{ jobDetail.company?.name }}</h6>		
+                <h6>{{ jobDetail.company?.contactName }} - {{ jobDetail.company?.phoneNumber }}</h6>
+              </div>
+              
+            </div>
+            <p class="address"><span class="fa fa-envelope-o"></span> {{ jobDetail.company?.email }}</p>
+            <p class="address"><span class="fa fa-map-o"></span> {{ jobDetail.company?.address }}</p>
+            <p class="address"><span class="fa fa-database"></span> {{ jobDetail.fromSalary | salaryConverter:jobDetail.toSalary:'$' }}</p>
+          </div>
+        </div>	
+
+        <div class="single-post job-details">
+          <h4 class="single-title">Description</h4>
+          <p class="text-description" [innerHTML]="jobDetail.description"></p>
+        </div>
+        <div class="single-post job-experience">
+          <h4 class="single-title">Requirements</h4>
+          <p class="text-description" [innerHTML]="jobDetail.requirements"></p>
+        </div>
+        <div class="single-post job-experience">
+          <h4 class="single-title">Benefits</h4>
+          <p class="text-description" [innerHTML]="jobDetail.benefits"></p>
+        </div>														
+      </div>
 </div>

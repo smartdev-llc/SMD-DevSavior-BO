@@ -39,8 +39,11 @@ export class CompanyUsersComponent implements OnInit {
       .set('page', this.usersQueryParams.page.toString());
     this.userService.searchCompanyUsers(params).subscribe(
       data => {
+        console.log(params);
+        
         this.users = data.list;
         this.totalUsers = data.total;
+        console.log(data)
       },
       error => {
       }
@@ -78,7 +81,7 @@ export class CompanyUsersComponent implements OnInit {
       );
     }
   }
-  linkToCompanyDetail(companyId) {
-    this.router.navigate([`/dashboard/company-users/${companyId}`]);
+  linkToCompanyDetail(companySlug, companyId) {
+    this.router.navigate([`/dashboard/company-users/${companySlug}/${companyId}`]);
   }
 }

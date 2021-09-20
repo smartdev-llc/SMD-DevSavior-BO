@@ -20,7 +20,8 @@
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <h4>List Hot hotJobs</h4>
+              <h4>List Hot Jobs</h4>
+              <h4 class="float-right">Total Hot Jobs: {{ totalJobs }}</h4>
             </div>
             <div class="card-body">
               <h5 *ngIf="!hotJobs.length">No Results Found</h5>
@@ -39,7 +40,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="table-row"  *ngFor="let hotJob of hotJobs" (click)="linkToJobDetail(hotJob.id)">
+                    <tr class="table-row"  *ngFor="let hotJob of hotJobs" (click)="linkToJobDetail(hotJob.job.slug)">
                       <th>{{ hotJob.id }}</th>
                       <td>{{ hotJob.job.title }}</td>
                       <td>{{ hotJob.company.name }}</td>

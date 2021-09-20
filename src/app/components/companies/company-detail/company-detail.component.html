@@ -19,13 +19,13 @@
 </div>
   <div class="row">
       <div class="mr-auto ml-auto col-md-11 col-sm-12 col-xs-12 image-section">
-          <img src="{{ companyDetail.coverURL || 'assets/41562ad4a92b16a.jpg' }}">
+          <img src="{{ companyDetail.coverURL || 'assets/img/load-cover.gif' }}">
       </div>
       <div class="row user-left-part mr-auto ml-auto col-md-11 col-sm-12 col-xs-12 image-section">
           <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
               <div class="row ">
                   <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-                      <img src="{{ companyDetail.logoURL || 'assets/avatar-default.png' }}" class="rounded-circle">
+                      <img src="{{ companyDetail.logoURL || 'assets/img/load-avtar.gif' }}" class="rounded-circle">
                   </div>
                   <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                     <div class="follow"></div>
@@ -45,7 +45,19 @@
                         <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'PENDING'" (click)="changeCompanyStatus('reject', companyDetail.id)">Reject</button>
                         <button type="button" class="btn btn-danger mr-4 btn-block" *ngIf="companyDetail.status === 'ACTIVE'" (click)="changeCompanyStatus('deactivate', companyDetail.id)">Deactive</button>
                         <button type="button" class="btn btn-success mr-4 btn-block" *ngIf="companyDetail.status === 'INACTIVE'" (click)="changeCompanyStatus('activate', companyDetail.id)">Active</button>
-                      </div>                            
+                      </div>   
+                      <div class="border mt-4"></div>
+                      <h4>Jobs</h4>
+                      <div class="chart mt-2">
+                        <canvas baseChart
+                          [data]="pieChartData"
+                          [labels]="pieChartLabels"
+                          [chartType]="pieChartType"
+                          [options]="pieChartOptions"
+                          [colors]="pieChartColors"
+                          [legend]="pieChartLegend">
+                        </canvas>
+                      </div>                         
                   </div>
                   <div class="row user-detail-row">
                       <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -69,20 +81,16 @@
                   </div>
                   <div class="col-md-12">
                       <div *ngIf="isLoading" id="load">
-                          <div class="body">
-                            <span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                            </span>
-                            <div class="base">
-                              <span></span>
-                              <div class="face"></div>
-                            </div>
+                          <div id="loader">
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
+                              <div class="dot"></div>
                           </div>
-                          <div class="longfazers">
-                          </div> 
                         </div>
                       <div class="row">
                           <div class="col-md-12">
@@ -270,7 +278,7 @@
   <!-- Confirm Delete workingExperience modal dialog -->
   <confirm-dialog
     #confirmCompanyStatusDialog
-    [config]="{title: 'Are you sure?', description: 'Change job status'}"
+    [config]="{title: 'Are you sure?', description: 'Change status of this company'}"
     (handleConfirm)="handleConfirm($event)">
   </confirm-dialog>
 <!-- End Confirm Delete workingExperience modal dialog -->
